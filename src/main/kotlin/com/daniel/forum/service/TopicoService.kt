@@ -1,5 +1,6 @@
 package com.daniel.forum.service
 
+import com.daniel.forum.dto.AtualizaTopicoDto
 import com.daniel.forum.dto.NovoTopicoDto
 import com.daniel.forum.mapper.TopicoMapper
 import com.daniel.forum.model.Topico
@@ -20,6 +21,15 @@ class TopicoService(
         topicoMapper.map(dto)?.let { topico ->
             topico.id = topicos.size.toLong() + 1
             topicos.add(topico)
+        }
+    }
+
+    fun atualizar(dto: AtualizaTopicoDto) {
+        topicos.forEachIndexed { index, topico ->
+            if (topico.id == dto.id) {
+                topicos[index] = topico.copy(titulo = dto.titulo, mensagem = dto.mensagem)
+                return
+            }
         }
     }
 }

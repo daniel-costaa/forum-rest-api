@@ -1,5 +1,6 @@
 package com.daniel.forum.controller
 
+import com.daniel.forum.dto.AtualizaTopicoDto
 import com.daniel.forum.dto.NovoTopicoDto
 import com.daniel.forum.model.Topico
 import com.daniel.forum.service.TopicoService
@@ -7,6 +8,7 @@ import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -26,5 +28,10 @@ class TopicoController(private val service: TopicoService) {
     @PostMapping
     fun cadastrar(@RequestBody @Valid dto: NovoTopicoDto) {
         service.cadastrar(dto)
+    }
+
+    @PutMapping
+    fun atualizar(@RequestBody @Valid dto: AtualizaTopicoDto) {
+        service.atualizar(dto)
     }
 }
