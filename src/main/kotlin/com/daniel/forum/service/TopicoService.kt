@@ -1,14 +1,14 @@
 package com.daniel.forum.service
 
 import com.daniel.forum.dto.NovoTopicoDto
+import com.daniel.forum.mapper.TopicoMapper
 import com.daniel.forum.model.Topico
 import org.springframework.stereotype.Service
 
 @Service
 class TopicoService(
     private val topicos: MutableList<Topico> = mutableListOf(),
-    private val cursoService: CursoService,
-    private val usuarioService: UsuarioService,
+    private val topicoMapper: TopicoMapper,
 ) {
     fun listar(): List<Topico> = topicos
 
@@ -17,18 +17,9 @@ class TopicoService(
     }
 
     fun cadastrar(dto: NovoTopicoDto) {
-        val curso = cursoService.buscarPorId(dto.idCurso)
-        val usuario = usuarioService.buscarPorId(dto.idAutor)
-
-        if(curso != null && usuario != null) {
-            val novoTopico = Topico(
-                id = (topicos.size + 1).toLong(),
-                titulo = dto.titulo,
-                mensagem = dto.mensagem,
-                curso = curso,
-                autor = usuario
-            )
-            topicos.add(novoTopico)
+        topicoMapper.map(dto)?.let { topico ->
+            topico.id = topicos.size.toLong() + 1
+            topicos.add(topico)
         }
     }
 }
