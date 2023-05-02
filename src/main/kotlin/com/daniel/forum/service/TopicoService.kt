@@ -32,4 +32,9 @@ class TopicoService(
             }
         }
     }
+
+    fun deletar(id: Long) {
+        val topico = topicos.find { it.id == id }
+        topicos.remove(topico)
+    }
 }
