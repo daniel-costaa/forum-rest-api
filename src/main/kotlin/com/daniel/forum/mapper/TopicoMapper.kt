@@ -15,8 +15,8 @@ class TopicoMapper(
         val curso = cursoService.buscarPorId(t.idCurso)
         val usuario = usuarioService.buscarPorId(t.idAutor)
 
-        return if(curso != null && usuario != null) {
-             Topico(
+        return if (curso != null && usuario != null) {
+            Topico(
                 titulo = t.titulo,
                 mensagem = t.mensagem,
                 curso = curso,

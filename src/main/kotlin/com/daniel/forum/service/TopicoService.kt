@@ -17,20 +17,22 @@ class TopicoService(
         return topicos.find { it.id == id }
     }
 
-    fun cadastrar(dto: NovoTopicoDto) {
-        topicoMapper.map(dto)?.let { topico ->
+    fun cadastrar(dto: NovoTopicoDto): Topico? {
+        return topicoMapper.map(dto)?.let { topico ->
             topico.id = topicos.size.toLong() + 1
             topicos.add(topico)
+             topico
         }
     }
 
-    fun atualizar(dto: AtualizaTopicoDto) {
+    fun atualizar(dto: AtualizaTopicoDto): Topico? {
         topicos.forEachIndexed { index, topico ->
             if (topico.id == dto.id) {
                 topicos[index] = topico.copy(titulo = dto.titulo, mensagem = dto.mensagem)
-                return
+                return topicos[index]
             }
         }
+        return null
     }
 
     fun deletar(id: Long) {
